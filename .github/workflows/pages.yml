@@ -1,0 +1,61 @@
+name: Build CV and publish to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Go Mono is not in TeX Live; fetch the TTFs from the upstream Go repo.
+      # Charter falls back to XCharter (in TeX Live). Avenir Next has no free
+      # equivalent, so the .tex falls through to the default sans on CI.
+      - name: Download Go Mono fonts
+        run: |
+          mkdir -p fonts
+          base=https://raw.githubusercontent.com/golang/image/master/font/gofont/ttfs
+          for f in Go-Mono Go-Mono-Bold Go-Mono-Italic Go-Mono-Bold-Italic; do
+            curl -fsSL "$base/$f.ttf" -o "fonts/$f.ttf"
+          done
+
+      - name: Compile with XeLaTeX
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: mdhesari-cv.tex
+          latexmk_use_xelatex: true
+          extra_fonts: fonts/*.ttf
+
+      - name: Assemble site
+        run: |
+          cp mdhesari-cv.pdf site/Mohamad-Hesari-CV.pdf
+
+      - uses: actions/configure-pages@v6
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

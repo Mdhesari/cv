@@ -1,0 +1,199 @@
+% !TEX program = xelatex
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,left=37.5mm,right=12.5mm,top=9mm,bottom=7mm]{geometry}
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage[protrusion=true,expansion=false]{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\hypersetup{
+    pdftitle={Mohamad Hesari - Senior Backend Engineer},
+    pdfauthor={Mohamad Hesari},
+    pdfsubject={CV},
+    pdfkeywords={Senior Backend Engineer, Go, PHP, Laravel, JavaScript, React, fintech, payments, multi-tenant, on-premise}
+}
+
+\defaultfontfeatures{Ligatures=TeX}
+
+\IfFontExistsTF{Charter}{%
+    \setmainfont{Charter}
+}{%
+    \setmainfont{XCharter}[
+        Extension=.otf,
+        UprightFont=*-Roman,
+        ItalicFont=*-Italic,
+        BoldFont=*-Bold,
+        BoldItalicFont=*-BoldItalic]
+}
+
+\IfFontExistsTF{Avenir Next}{%
+    \setsansfont{Avenir Next}[Scale=MatchLowercase, BoldFont={Avenir Next Demi Bold}]
+    \newfontfamily\namefont{Avenir Next Bold}
+    \newfontfamily\datefont{Avenir Next Condensed}[Scale=MatchLowercase]
+}{%
+    \IfFontExistsTF{Helvetica Neue}{\setsansfont{Helvetica Neue}[Scale=MatchLowercase]}{}
+    \newcommand{\namefont}{\sffamily\bfseries}
+    \newcommand{\datefont}{\sffamily}
+}
+
+\IfFontExistsTF{Go Mono for Powerline}{%
+    \setmonofont{Go Mono for Powerline}[Scale=MatchLowercase]
+}{%
+    \IfFontExistsTF{Go Mono}
+        {\setmonofont{Go Mono}[Scale=MatchLowercase]}
+        {\IfFontExistsTF{Menlo}{\setmonofont{Menlo}[Scale=MatchLowercase]}{}}
+}
+
+\definecolor{ink}{HTML}{15181E}
+\definecolor{soft}{HTML}{545D69}
+\definecolor{accent}{HTML}{00677F}
+\definecolor{hair}{HTML}{C9D1D8}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+
+\newlength{\railw}     \setlength{\railw}{21mm}
+\newlength{\railsep}   \setlength{\railsep}{4mm}
+\newlength{\railtotal} \setlength{\railtotal}{\dimexpr\railw+\railsep\relax}
+\newlength{\fullw}
+
+\makeatletter
+\newcommand{\ragged}{%
+    \@rightskip=0pt plus 20em\relax \rightskip=\@rightskip
+    \hyphenpenalty=10000 \exhyphenpenalty=10000
+    \pretolerance=3000 \tolerance=3000 \emergencystretch=3em}
+\makeatother
+
+\newcommand{\bodysize}{\fontsize{9}{11.5}\selectfont}
+
+\newcommand{\rail}[1]{\leavevmode\llap{\smash{\parbox[t]{\railw}{\raggedright #1}}\hspace{\railsep}}\ignorespaces}
+\newcommand{\seclabel}[1]{\leavevmode{\ttfamily\fontsize{6.7}{8}\selectfont\color{accent}\MakeUppercase{#1}}}
+\newcommand{\dates}[1]{{\datefont\fontsize{8.7}{10}\selectfont\color{soft}#1}}
+
+\newif\ifaftersection
+\newcommand{\cvsection}[1]{%
+    \par\addvspace{9pt}%
+    {\fontsize{6.5}{7.5}\selectfont\noindent\rail{\seclabel{#1}}%
+     \textcolor{hair}{\leaders\hrule height 2.5pt depth -2.1pt\hfill}\kern0pt\par}%
+    \nobreak\vspace{2pt}\global\aftersectiontrue
+}
+
+\newcommand{\job}[3]{%
+    \par\ifaftersection\global\aftersectionfalse\else\addvspace{6.5pt}\fi\noindent
+    {\sffamily\bfseries\fontsize{10.4}{12.5}\selectfont #1}\hspace{0.7em}%
+    {\sffamily\fontsize{9}{12.5}\selectfont\color{soft}#2}\hfill\dates{#3}\par\nobreak
+}
+
+\newcommand{\product}[1]{{\sffamily\bfseries #1}}
+\newcommand{\code}[1]{{\ttfamily\fontsize{8.3}{11}\selectfont #1}}
+
+\newcommand{\skillrow}[2]{%
+    \noindent\makebox[33mm][l]{\sffamily\fontsize{8.5}{11.2}\selectfont\color{soft}#1}%
+    {\ttfamily\fontsize{7.8}{11.2}\selectfont\color{ink}#2}\par}
+
+\newcommand{\degree}[3]{{\sffamily\bfseries #1} · #2 · #3\par}
+
+\setlist[itemize]{
+    leftmargin=8.5pt,
+    labelsep=4.2pt,
+    itemsep=1.3pt,
+    parsep=0pt,
+    topsep=2pt,
+    partopsep=0pt,
+    label={\textcolor{accent}{\rule[0.34ex]{2.3pt}{2.3pt}}}
+}
+
+\begin{document}
+\setlength{\fullw}{\dimexpr\textwidth+\railtotal\relax}
+\bodysize\color{ink}\ragged
+
+\noindent\hspace*{-\railtotal}%
+\begin{minipage}[b]{0.56\fullw}
+    {\namefont\fontsize{26}{27}\selectfont\addfontfeature{LetterSpace=-1.5}Mohamad Hesari}\\[4.5pt]
+    {\sffamily\fontsize{10.4}{13}\selectfont Senior Backend Engineer\hspace{0.5em}\textcolor{accent}{/}\hspace{0.5em}Go, PHP (Laravel)}
+\end{minipage}%
+\begin{minipage}[b]{0.44\fullw}\raggedleft
+    \ttfamily\fontsize{7.2}{10.3}\selectfont
+    \href{mailto:mdhesari.dev@gmail.com}{mdhesari.dev@gmail.com}\\
+    \href{tel:+905822032970}{+90 582 203 29 70}\\
+    \href{https://github.com/Mdhesari}{github.com/Mdhesari}\\
+    \href{https://www.linkedin.com/in/mohamad-fazel-hesari/}{linkedin.com/in/mohamad-fazel-hesari}\\
+    {\color{soft}Istanbul, Türkiye}
+\end{minipage}
+\vspace{1pt}
+
+\cvsection{Profile}
+
+Backend engineer with 5+ years of experience.
+I have worked with Go since 2023 (my last two jobs) and with PHP (Laravel) since 2020, on fintech, online education and digital-signature products.
+
+\cvsection{Experience}
+
+\job{Simorgh}{Senior Backend Engineer · remote}{Jan 2025 – Present}
+
+\begin{itemize}
+    \item Main developer of the Go backend (Gin, GORM, PostgreSQL, MinIO).
+        Refactored the inherited code: removed the nested service and repository interfaces and fixed a package layout that kept producing import-cycle errors.
+    \item Set up structured logging with zap and request correlation IDs, and sent the logs to the ELK stack.
+        Before this, production failures had to be reproduced by hand.
+        The average time to debug a production problem went from 15 minutes to 5.
+    \item Added metrics with Prometheus and Grafana.
+    \item Designed the multi-tenancy.
+        Tenants share one database schema, rows are scoped by \code{tenant\_id}, and each tenant has its own settings.
+        Replaced the old \code{is\_admin} flag with RBAC.
+        Roles are defined per tenant.
+    \item Built the ERP integration, which reads user and contract records from a customer's in-house database (SQL Server, Oracle, MySQL or PostgreSQL database), maps the columns, and loads them into that customer's tenant.
+        The database credentials are kept in HashiCorp Vault.
+    \item Normalized JSON data into PostgreSQL tables with foreign keys and indexes, and removed the N+1 queries.
+    \item Also work on Simorgh's asset tokenization platform.
+        Built the fiat payout module of its payment service, in Go with gRPC.
+        The module is a payout gateway with drivers for two payment providers.
+\end{itemize}
+
+\job{INVERSE School}{Senior Backend Engineer}{Oct 2023 – Sep 2024}
+
+\begin{itemize}
+    \item Planned and executed the migration of the legacy learning management system (200k+ users) to a Moodle-based system, which ended its recurring production failures.
+    \item Replaced the monolithic infrastructure with Go and PHP microservices on Docker Swarm with Traefik, on self-managed Linux servers.
+    \item Wrote a small Go service that posted the health of the other services to Slack.
+    \item Built the payment pages in React.
+\end{itemize}
+
+\job{Startup Studio Octa}{Senior Backend Developer · PHP (Laravel)}{Aug 2021 – Oct 2023}
+
+\begin{itemize}
+    \item \product{Sepehrino}, a crowdfunding platform with 100k+ users: designed and owned the backend (PostgreSQL, Redis), including the integrations with the over-the-counter stock market and the national KYC service.
+        Worked with TDD and reached about 80\% test coverage.
+    \item \product{Crypto wallet} for Bitcoin, Ethereum (ERC-20 tokens) and Tron (TRC-20): built address generation, on-chain deposit detection and withdrawal signing.
+        Used by 1,000+ users of one enterprise client.
+    \item Designed the \product{Buy Now Pay Later} gateway for onboarding third-party merchants, and the loan tracking for end users.
+        Built on a lending partner's APIs.
+        Also designed the RabbitMQ pipeline for payment settlement.
+    \item Mentored a junior engineer.
+\end{itemize}
+
+\job{ModaresaneSharif.ac}{Backend Developer}{Oct 2020 – Oct 2021}
+
+\begin{itemize}
+    \item Built the Laravel application for online class registration and room management, integrated with BigBlueButton (video classroom over WebRTC).
+    \item Maintained the PrestaShop store, including a custom payment module and a theme.
+\end{itemize}
+
+\cvsection{Skills}
+
+\skillrow{Languages and APIs}{Go, PHP (Laravel), JavaScript (React), gRPC, REST}
+\skillrow{Data and messaging}{PostgreSQL, MySQL, Redis, MinIO, RabbitMQ}
+\skillrow{Infrastructure}{Docker, Docker Swarm, Traefik, Linux, CI/CD}
+\skillrow{Logging and metrics}{ELK (Elasticsearch, Logstash, Kibana), Prometheus, Grafana}
+
+\cvsection{Education}
+
+\degree{Associate Degree, Software Engineering}{Shamsipour Technical and Vocational College}{2019 – 2023}
+\degree{Diploma, Computer Programming}{Technical College of Ahrar}{2016 – 2019}
+\vspace{2.5pt}
+{\sffamily\bfseries Languages}\hspace{0.6em}Persian (native) · English (upper-intermediate, B2)\par
+
+\end{document}
