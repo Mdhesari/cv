@@ -135,19 +135,19 @@ I have worked with Go since 2023 (my last two jobs) and with PHP (Laravel) since
 \job{Simorgh}{Senior Backend Engineer · remote}{Jan 2025 – Present}
 
 \begin{itemize}
+    \item Designed the multi-tenancy.
+        Tenants share one database schema, rows are scoped by \code{tenant\_id}, and each tenant has its own settings.
+        Replaced the old \code{is\_admin} flag with RBAC.
+        Roles are defined per tenant.
+    \item Built the ERP integration, which reads user and contract records from a customer's in-house database (SQL Server, Oracle, MySQL or PostgreSQL), maps the columns, and loads them into that customer's tenant.
+        The database credentials are kept in HashiCorp Vault.
     \item Main developer of the Go backend (Gin, GORM, PostgreSQL, MinIO).
         Refactored the inherited code: removed the nested service and repository interfaces and fixed a package layout that kept producing import-cycle errors.
     \item Set up structured logging with zap and request correlation IDs, and sent the logs to the ELK stack.
         Before this, production failures had to be reproduced by hand.
         The average time to debug a production problem went from 15 minutes to 5.
-    \item Added metrics with Prometheus and Grafana.
-    \item Designed the multi-tenancy.
-        Tenants share one database schema, rows are scoped by \code{tenant\_id}, and each tenant has its own settings.
-        Replaced the old \code{is\_admin} flag with RBAC.
-        Roles are defined per tenant.
-    \item Built the ERP integration, which reads user and contract records from a customer's in-house database (SQL Server, Oracle, MySQL or PostgreSQL database), maps the columns, and loads them into that customer's tenant.
-        The database credentials are kept in HashiCorp Vault.
     \item Normalized JSON data into PostgreSQL tables with foreign keys and indexes, and removed the N+1 queries.
+    \item Added metrics with Prometheus and Grafana.
     \item Also work on Simorgh's asset tokenization platform.
         Built the fiat payout module of its payment service, in Go with gRPC.
         The module is a payout gateway with drivers for two payment providers.
@@ -158,8 +158,8 @@ I have worked with Go since 2023 (my last two jobs) and with PHP (Laravel) since
 \begin{itemize}
     \item Planned and executed the migration of the legacy learning management system (200k+ users) to a Moodle-based system, which ended its recurring production failures.
     \item Replaced the monolithic infrastructure with Go and PHP microservices on Docker Swarm with Traefik, on self-managed Linux servers.
-    \item Wrote a small Go service that posted the health of the other services to Slack.
     \item Built the payment pages in React.
+    \item Wrote a small Go service that posted the health of the other services to Slack.
 \end{itemize}
 
 \job{Startup Studio Octa}{Senior Backend Developer · PHP (Laravel)}{Aug 2021 – Oct 2023}
@@ -167,11 +167,11 @@ I have worked with Go since 2023 (my last two jobs) and with PHP (Laravel) since
 \begin{itemize}
     \item \product{Sepehrino}, a crowdfunding platform with 100k+ users: designed and owned the backend (PostgreSQL, Redis), including the integrations with the over-the-counter stock market and the national KYC service.
         Worked with TDD and reached about 80\% test coverage.
-    \item \product{Crypto wallet} for Bitcoin, Ethereum (ERC-20 tokens) and Tron (TRC-20): built address generation, on-chain deposit detection and withdrawal signing.
-        Used by 1,000+ users of one enterprise client.
     \item Designed the \product{Buy Now Pay Later} gateway for onboarding third-party merchants, and the loan tracking for end users.
         Built on a lending partner's APIs.
         Also designed the RabbitMQ pipeline for payment settlement.
+    \item \product{Crypto wallet} for Bitcoin, Ethereum (ERC-20 tokens) and Tron (TRC-20): built address generation, on-chain deposit detection and withdrawal signing.
+        Used by 1,000+ users of one enterprise client.
     \item Mentored a junior engineer.
 \end{itemize}
 
