@@ -139,22 +139,27 @@ simple, reliable systems that continue to work as complexity grows.
 \job{Simorgh}{Senior Backend Engineer · remote}{Jan 2025 – Present}
 
 \begin{itemize}
-    \item Designed the multi-tenancy.
-        Tenants share one database schema, rows are scoped by \code{tenant\_id}, and each tenant has its own settings.
-        Replaced the old \code{is\_admin} flag with RBAC.
-        Roles are defined per tenant.
-    \item Built the ERP integration, which reads user and contract records from a customer's in-house database (SQL Server, Oracle, MySQL or PostgreSQL), maps the columns, and loads them into that customer's tenant.
-        The database credentials are kept in HashiCorp Vault.
-    \item Main developer of the Go backend (Gin, GORM, PostgreSQL, MinIO).
-        Refactored the inherited code: removed the nested service and repository interfaces and fixed a package layout that kept producing import-cycle errors.
-    \item Set up structured logging with zap and request correlation IDs, and sent the logs to the ELK stack.
-        Before this, production failures had to be reproduced by hand.
-        The average time to debug a production problem went from 15 minutes to 5.
-    \item Normalized JSON data into PostgreSQL tables with foreign keys and indexes, and removed the N+1 queries.
-    \item Added metrics with Prometheus and Grafana.
-    \item Also work on Simorgh's asset tokenization platform.
-        Built the fiat payout module of its payment service, in Go with gRPC.
-        The module is a payout gateway with drivers for two payment providers.
+    \item Designed and implemented multi-tenancy and tenant-scoped RBAC,
+        replacing the previous global admin model. Tenants share one PostgreSQL
+        schema with row-level \code{tenant\_id} isolation and tenant-specific settings.
+
+    \item Designed and built an ERP integration that imports user and contract
+        data from customer-managed SQL Server, Oracle, MySQL, and PostgreSQL databases,
+        with credentials stored in HashiCorp Vault.
+
+    \item Primary backend developer for the Go platform
+        (Gin, GORM, PostgreSQL, MinIO). Refactored the inherited architecture
+        to simplify package boundaries and eliminate recurring import-cycle problems.
+
+    \item Introduced structured logging, request correlation IDs, ELK-based
+        log aggregation, and production metrics with Prometheus and Grafana.
+        Reduced average production debugging time from 15 minutes to 5.
+
+    \item Restructured normalized JSON data into relational PostgreSQL tables,
+        adding foreign keys and indexes and eliminating N+1 query patterns.
+
+    \item Built the fiat payout module for the company's asset-tokenization platform,
+        using Go and gRPC with provider-specific gateway drivers for two payment providers.
 \end{itemize}
 
 \job{INVERSE School}{Senior Backend Engineer}{Oct 2023 – Sep 2024}
