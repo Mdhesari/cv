@@ -81,14 +81,18 @@
     \nobreak\vspace{2pt}\global\aftersectiontrue
 }
 
+\newif\ifafterjob
 \newcommand{\job}[3]{%
     \par\ifaftersection\global\aftersectionfalse\else\addvspace{6.5pt}\fi\noindent
     {\sffamily\bfseries\fontsize{10.4}{12.5}\selectfont #1}\hspace{0.7em}%
     {\sffamily\fontsize{9}{12.5}\selectfont\color{soft}#2}\hfill\dates{#3}\par\nobreak
+    \global\afterjobtrue
 }
 
-\newcommand{\product}[1]{{\sffamily\bfseries #1}}
-\newcommand{\code}[1]{{\ttfamily\fontsize{8.3}{11}\selectfont #1}}
+\newcommand{\project}[1]{%
+    \par\ifafterjob\global\afterjobfalse\addvspace{1.5pt}\else\addvspace{4.5pt}\fi\noindent
+    {\sffamily\bfseries #1}\par\nobreak
+}
 
 \newcommand{\skillrow}[2]{%
     \noindent\makebox[33mm][l]{\sffamily\fontsize{8.5}{11.2}\selectfont\color{soft}#1}%
@@ -131,82 +135,105 @@ I enjoy working on the parts of software that are easy to underestimate:
 data consistency, system boundaries, integrations, failure cases, and the
 trade-offs behind seemingly simple decisions. Over the past 5 years,
 I've built backend systems with Go and PHP and taken them from design to
-production. My current focus is becoming exceptionally good at building
-simple, reliable systems that continue to work as complexity grows.
+production. My goal is to build simple, reliable systems that keep
+working as they grow.
 
 \cvsection{Experience}
 
 \job{Simorgh}{Senior Backend Engineer · remote}{Jan 2025 – Sep 2026}
 
+\project{Digital signature platform}
+
 \begin{itemize}
     \item Designed and implemented multi-tenancy and tenant-scoped RBAC,
         replacing the previous global admin model.
 
-    \item Designed and built an ERP integration that imports user and contract
+    \item Built an ERP integration that imports user and contract
         data from customer-managed SQL Server, Oracle, MySQL, and PostgreSQL databases,
         with credentials stored in HashiCorp Vault.
 
-    \item Primary backend developer for the Go platform
-        (Gin, GORM, PostgreSQL, MinIO). Refactored the inherited architecture
-        to simplify package boundaries and eliminate recurring import-cycle problems.
+    \item Primary Go backend developer (Gin, GORM, PostgreSQL, MinIO) in a team of 8,
+        on a platform with 100k+ users and 200k+ documents. Refactored the inherited
+        package layout that kept causing import-cycle errors.
 
     \item Introduced structured logging, request correlation IDs, ELK-based
         log aggregation, and production metrics with Prometheus and Grafana.
         Reduced average production debugging time from 15 minutes to 5.
 
-    \item Restructured normalized JSON data into relational PostgreSQL tables,
-        adding foreign keys and indexes and eliminating N+1 query patterns.
+    \item Restructured JSON data into normalized tables with foreign keys and indexes,
+        and removed N+1 queries.
+\end{itemize}
 
-    \item Built the fiat payout module for the company's asset-tokenization platform,
-        using Go and gRPC with provider-specific gateway drivers for two payment providers.
+\project{Asset-tokenization platform}
+
+\begin{itemize}
+    \item Built the fiat payout module using Go and gRPC, with drivers
+        for two payment providers.
+
+    \item Developed an analytics service in Go that runs Sling every 15 minutes to copy new data
+        from five read-only database replicas into a PostgreSQL OLAP warehouse. Wrote its SQL
+        transformations and a Grafana dashboard for user growth, trading volume, and wallet values.
+
+    \item Integrated a client bank's KYC API into customer sign-up and its SMS API into login.
 \end{itemize}
 
 \job{INVERSE School}{Senior Backend Engineer}{Oct 2023 – Sep 2024}
 
 \begin{itemize}
-     \item Planned and executed the migration of a legacy learning platform
-        serving 200k+ users to Moodle-based infrastructure, eliminating recurring
-        production failures.
+    \item Planned and executed the migration of a legacy learning platform
+        with 200k+ users to Moodle, which ended its recurring failures in payments,
+        the user dashboard, and course streaming.
 
-    \item Replaced the monolithic infrastructure with Go and PHP services running
-        on Docker Swarm and Traefik across self-managed Linux servers.
+    \item Built Go and PHP services and deployed them on Docker Swarm and Traefik
+        across self-managed Linux servers.
 \end{itemize}
 
 \job{Startup Studio Octa}{Senior Backend Developer · PHP (Laravel)}{Aug 2021 – Oct 2023}
 
+\project{Crowdfunding platform}
+
 \begin{itemize}
-    \item \product{Sepehrino} — designed and owned the backend of a crowdfunding
-        platform serving 100k+ users, including PostgreSQL/Redis architecture,
-        stock-market integrations, and national KYC integration.
+    \item Designed and owned the backend (PostgreSQL, Redis) for 100k+ users, including
+        the stock-market and national KYC integrations.
 
-    \item Applied TDD throughout the project and maintained approximately 80\%
-        test coverage.
+    \item Applied TDD and kept test coverage at about 80\%.
+\end{itemize}
 
-    \item Designed a \product{Buy Now, Pay Later} platform for third-party merchants,
-        including merchant onboarding, loan tracking, and payment settlement
-        through a RabbitMQ-based pipeline.
+\project{Buy Now, Pay Later platform}
 
-    \item Built a \product{crypto wallet} supporting Bitcoin, Ethereum/ERC-20,
-        and Tron/TRC-20, including address generation, on-chain deposit detection,
-        and withdrawal signing. Used by 1,000+ users of an enterprise client.
+\begin{itemize}
+    \item Designed onboarding for third-party merchants, loan tracking, and settlement
+        through a RabbitMQ pipeline.
+\end{itemize}
 
+\project{Crypto wallet}
+
+\begin{itemize}
+    \item Built address generation, on-chain deposit detection, and withdrawal signing
+        for Bitcoin, Ethereum (ERC-20), and Tron (TRC-20). Used by 1,000+ users at an
+        enterprise client.
+\end{itemize}
+
+\project{Team}
+
+\begin{itemize}
     \item Mentored a junior engineer.
 \end{itemize}
 
 \job{ModaresaneSharif.ac}{Backend Developer}{Oct 2020 – Oct 2021}
 
 \begin{itemize}
-    \item Built a Laravel platform for online class registration and room management,
+    \item Built a Laravel application for online class registration and room management,
         integrated with BigBlueButton for browser-based video classrooms.
 
-    \item Maintained the company's PrestaShop platform, including a custom payment module.
+    \item Maintained the company's PrestaShop store and its custom payment module.
 \end{itemize}
 
 \cvsection{Skills}
 
 \skillrow{Languages and APIs}{Go, PHP (Laravel), JavaScript (React), gRPC, REST}
 \skillrow{Data and messaging}{PostgreSQL, MySQL, Redis, MinIO, RabbitMQ}
-\skillrow{Infrastructure}{Docker, Docker Swarm, Traefik, Linux, CI/CD}
+\skillrow{Infrastructure}{Docker, Docker Swarm, Traefik, HashiCorp Vault, Linux, CI/CD}
 \skillrow{Logging and metrics}{ELK (Elasticsearch, Logstash, Kibana), Prometheus, Grafana}
 
 \cvsection{Education}
