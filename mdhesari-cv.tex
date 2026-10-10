@@ -5,6 +5,8 @@
 \usepackage{fontspec}
 \usepackage{xcolor}
 \usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{tikz}
 \usepackage[protrusion=true,expansion=false]{microtype}
 \usepackage[hidelinks]{hyperref}
 
@@ -59,6 +61,35 @@
 \newlength{\railsep}   \setlength{\railsep}{4mm}
 \newlength{\railtotal} \setlength{\railtotal}{\dimexpr\railw+\railsep\relax}
 \newlength{\fullw}
+
+% ---- header photo -----------------------------------------------------------
+% Save your picture as photo.jpg (or .png) next to this file.
+% Any aspect ratio works: it is scaled to cover the frame and centre-cropped.
+\newlength{\photow}     \setlength{\photow}{18mm}     % photo diameter (about the height of the contact block)
+\newlength{\photosep}   \setlength{\photosep}{4mm}    % gap between contact block and photo
+\newlength{\photoshift} \setlength{\photoshift}{0mm}  % move picture inside the frame (< 0 shows more of the top)
+\newlength{\imgw} \newlength{\imgh}
+
+\newcommand{\photoshape}{(0,0) circle (0.5\photow)}
+% rounded square instead of a circle (uncomment):
+% \renewcommand{\photoshape}{[rounded corners=2pt] (-0.5\photow,-0.5\photow) rectangle (0.5\photow,0.5\photow)}
+
+\newcommand{\cvphoto}[1]{%
+    \settowidth{\imgw}{\includegraphics{#1}}%
+    \settoheight{\imgh}{\includegraphics{#1}}%
+    \begin{tikzpicture}[baseline=(current bounding box.south)]
+        \useasboundingbox (-0.5\photow,-0.5\photow) rectangle (0.5\photow,0.5\photow);
+        \begin{scope}
+            \clip \photoshape;
+            \node[inner sep=0pt] at (0,\photoshift) {%
+                \ifdim\imgw<\imgh
+                    \includegraphics[width=\photow]{#1}%
+                \else
+                    \includegraphics[height=\photow]{#1}%
+                \fi};
+        \end{scope}
+        \draw[hair, line width=0.5pt] \photoshape;
+    \end{tikzpicture}}
 
 \makeatletter
 \newcommand{\ragged}{%
@@ -119,13 +150,17 @@
     {\namefont\fontsize{26}{27}\selectfont\addfontfeature{LetterSpace=-1.5}Mohamad Hesari}\\[4.5pt]
     {\sffamily\fontsize{10.4}{13}\selectfont Senior Backend Engineer\hspace{0.5em}\textcolor{accent}{/}\hspace{0.5em}Go, PHP (Laravel)}
 \end{minipage}%
-\begin{minipage}[b]{0.44\fullw}\raggedleft
+\begin{minipage}[b]{\dimexpr0.44\fullw-\photow-\photosep\relax}\raggedleft
     \ttfamily\fontsize{7.2}{10.3}\selectfont
     \href{mailto:mdhesari.dev@gmail.com}{mdhesari.dev@gmail.com}\\
     \href{tel:+905822032970}{+90 582 203 29 70}\\
     \href{https://github.com/Mdhesari}{github.com/Mdhesari}\\
     \href{https://www.linkedin.com/in/mohamad-fazel-hesari/}{linkedin.com/in/mohamad-fazel-hesari}\\
     {\color{soft}Istanbul, Türkiye}
+\end{minipage}%
+\hspace{\photosep}%
+\begin{minipage}[b]{\photow}
+    \cvphoto{photo.jpg}%
 \end{minipage}
 \vspace{1pt}
 
