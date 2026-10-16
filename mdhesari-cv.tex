@@ -12,7 +12,7 @@
     pdftitle={Mohamad Hesari - Senior Backend Engineer},
     pdfauthor={Mohamad Hesari},
     pdfsubject={CV},
-    pdfkeywords={Senior Backend Engineer, Go, PHP, Laravel, TypeScript, JavaScript, React, fintech, payments, multi-tenant, on-premise}
+    pdfkeywords={Senior Backend Engineer, Go, PHP, Laravel, JavaScript, React, Vuejs, fintech, payments, multi-tenant, on-premise}
 }
 
 \defaultfontfeatures{Ligatures=TeX}
@@ -20,18 +20,12 @@
 \IfFontExistsTF{Charter}{%
     \setmainfont{Charter}
 }{%
-    \IfFontExistsTF{XCharter}{%
-        \setmainfont{XCharter}[
-            Extension=.otf,
-            UprightFont=*-Roman,
-            ItalicFont=*-Italic,
-            BoldFont=*-Bold,
-            BoldItalicFont=*-BoldItalic]
-    }{%
-        \IfFontExistsTF{Bitstream Charter}
-            {\setmainfont{Bitstream Charter}}
-            {\setmainfont{TeX Gyre Pagella}}%
-    }
+    \setmainfont{XCharter}[
+        Extension=.otf,
+        UprightFont=*-Roman,
+        ItalicFont=*-Italic,
+        BoldFont=*-Bold,
+        BoldItalicFont=*-BoldItalic]
 }
 
 \IfFontExistsTF{Avenir Next}{%
@@ -137,75 +131,112 @@
 
 \cvsection{Profile}
 
-Senior backend engineer with 5+ years of experience building Go and PHP/Laravel
-systems across SaaS, payments, lending, and online learning. Experienced in
-multi-tenancy, third-party integrations, asynchronous workflows, and production
-reliability. Work spans architecture, implementation, testing, and deployment,
-with additional hands-on React/TypeScript development and personal AI projects.
+I enjoy working on the parts of software that are easy to underestimate:
+data consistency, system boundaries, integrations, failure cases, and the
+trade-offs behind seemingly simple decisions. Over the past 5 years,
+I've built backend systems with Go and PHP and taken them from design to
+production. My goal is to build simple, reliable systems that keep
+working as they grow.
 
 \cvsection{Skills}
-\skillrow{Backend and APIs}{Go, PHP (Laravel), REST, gRPC}
-\skillrow{Frontend}{TypeScript, JavaScript, React, Vue.js}
-\skillrow{Data and messaging}{PostgreSQL, MySQL, Redis, RabbitMQ}
-\skillrow{Infrastructure}{Docker, Docker Swarm, Traefik, HashiCorp Vault, Linux}
-\skillrow{Quality and operations}{ELK, Prometheus, Grafana, TDD, Pest, PHPUnit}
+
+\skillrow{Languages and APIs}{Go, PHP (Laravel), JavaScript (React, Vuejs), gRPC, REST}
+\skillrow{Data and messaging}{PostgreSQL, MySQL, Redis, MinIO, RabbitMQ}
+\skillrow{Infrastructure}{Docker, Docker Swarm, Traefik, HashiCorp Vault, Linux, CI/CD}
+\skillrow{Logging and metrics}{ELK (Elasticsearch, Logstash, Kibana), Prometheus, Grafana}
 
 \cvsection{Experience}
-\job{Simorgh}{Senior Backend Engineer · remote}{Jan 2025 – Oct 2026}
+
+\job{Simorgh}{Senior Backend Engineer · remote}{Jan 2025 – Sep 2026}
+
+\project{Digital signature platform}
+
 \begin{itemize}
-    \item Simplified an inherited Go/PostgreSQL platform with the technical lead,
-          reducing unnecessary abstractions and improving maintainability and stability.
-    \item Implemented multi-tenancy and tenant-scoped role-based access control
-          for a digital-signature SaaS platform.
-    \item Built ERP integrations importing user and contract data from customer-managed
-          SQL Server, Oracle, MySQL, and PostgreSQL databases, with credentials stored in HashiCorp Vault.
-    \item Built fiat payment and settlement services integrating a third-party provider,
-          with RabbitMQ for asynchronous processing.
-    \item Introduced structured logging, request correlation IDs, ELK log aggregation,
-          and production metrics with Prometheus and Grafana.
+    \item Refactored the inherited Go monolith into a modular
+          architecture to simplify package boundaries with minimal disruption to delivery.
+
+    \item Designed and implemented multi-tenancy and tenant-scoped RBAC
+          for a SaaS platform with 100k+ users and 200k+ documents.
+
+    \item Built an ERP integration that imports user and contract
+          data from customer-managed SQL Server, Oracle, MySQL, and PostgreSQL databases,
+          with credentials stored in HashiCorp Vault.
+
+    \item Introduced structured logging, request correlation IDs, ELK-based
+          log aggregation, and production metrics with Prometheus and Grafana.
+          Reduced average production debugging time and bug resolution time by 200\%.
+
+    \item Restructured JSON data into normalized tables with foreign keys and indexes,
+          and removed N+1 queries.
+\end{itemize}
+
+\project{Asset-tokenization platform}
+
+\begin{itemize}
+    \item Developed an analytics service in Go that runs Sling every 15 minutes to copy new data
+          from five read-only database replicas into a PostgreSQL OLAP warehouse. Wrote its SQL
+          transformations and a Grafana dashboard for user growth, trading volume, and wallet values.
+
+    \item Designed and implemented a multi-tenant wallet service in Go that supports Bitcoin, Ethereum, and Tron.
+          It handles address generation, on-chain deposit detection, and withdrawal signing. Used by 1,000+ users at an enterprise client.
+
+    \item Implemented complex KYC and AML checks for user onboarding, including a third-party integration.
+    
+    \item Built fiat payment and settlement services with a third-party payment provider, including a RabbitMQ pipeline for asynchronous processing.
 \end{itemize}
 
 \job{INVERSE School}{Senior Backend Engineer}{Oct 2023 – Sep 2024}
+
 \begin{itemize}
-    \item Reworked payment service boundaries and rewrote a PHP payment service in Go;
-          tested it in staging and deployed it to production.
-    \item Integrated and released a third-party BNPL gateway; implemented HTTP idempotency
-          keys, unique transaction IDs, and database locking in payment flows.
-    \item Tested successful and failed transactions, idempotency, and backward compatibility
-          using mocked payment gateways.
-    \item Deployed Go and PHP services on self-managed Linux infrastructure using Docker Swarm and Traefik.
+    \item Planned and executed the migration of a legacy learning platform
+          with 200k+ users to Moodle, which ended its recurring failures in payments,
+          the user dashboard, and course streaming.
+
+    \item Built Go and PHP services and deployed them on Docker Swarm and Traefik
+          across self-managed Linux servers.
 \end{itemize}
 
 \job{Startup Studio Octa}{Senior Backend Developer}{Aug 2021 – Oct 2023}
+
+\project{Crowdfunding platform}
+
 \begin{itemize}
-    \item Owned backend design and development for LandPay, building the lending product
-          from scratch with Laravel, MySQL, and Redis.
-    \item Collaborated with product managers and designers on merchant onboarding, KYC,
-          credit packages, B2B workflows, payments, and data models.
-    \item Used TDD and developed Pest/Laravel tests covering lending, wallets, payments,
-          installments, and authorization scenarios.
-    \item Designed and developed the backend for Sepehrino, a crowdfunding platform.
+    \item Designed and owned the backend (PHP, Laravel, PostgreSQL, Redis) for 100k+ users, including
+          the stock-market and national KYC integrations.
+
+    \item Applied TDD and kept test coverage at about 80\% with PHPUnit and Pest.
+\end{itemize}
+
+\project{Buy Now, Pay Later platform}
+
+\begin{itemize}
+    \item Designed onboarding for third-party merchants, loan tracking, and settlement
+          through a RabbitMQ pipeline.
+    \item Mentored a junior engineer.
+\end{itemize}
+
+\project{Crypto wallet}
+
+\begin{itemize}
+    \item Built address generation, on-chain deposit detection, and withdrawal signing
+          for Bitcoin, Ethereum (ERC-20), and Tron (TRC-20). Used by 1,000+ users at an
+          enterprise client.
 \end{itemize}
 
 \job{ModaresaneSharif.ac}{Backend Developer}{Oct 2020 – Oct 2021}
-\begin{itemize}
-    \item Built Laravel commerce and online-learning functionality,
-          integrating BigBlueButton for browser-based classes.
-\end{itemize}
 
-\cvsection{Projects}
 \begin{itemize}
-    \item \textbf{Fitness AI agent:} Developed an agent to evaluate diary entries,
-          meals, workouts, and activity records and report insights.
-    \item \textbf{E-commerce application:} Developed a web application using React and TypeScript.
-    \item \textbf{Sivi and Mentup:} Co-built and published \href{https://sivi.click}{Sivi},
-          a new-tab browser extension, and built \href{https://mentup.space}{Mentup};
-          used OpenAI and AI coding agents during product development.
+    \item Built a Laravel application for online class registration and room management,
+          integrated with BigBlueButton for browser-based video classrooms.
+
+    \item Maintained the company's PrestaShop store and its custom payment module.
 \end{itemize}
 
 \cvsection{Education}
+
 \degree{Associate Degree, Software Engineering}{Shamsipour Technical and Vocational College}{2019 – 2023}
 \degree{Diploma, Computer Programming}{Technical College of Ahrar}{2016 – 2019}
 \vspace{2.5pt}
 {\sffamily\bfseries Languages}\hspace{0.6em}Persian (native) · English (upper-intermediate, B2)\par
+
 \end{document}
